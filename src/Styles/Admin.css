@@ -1,0 +1,29 @@
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    color: whitesmoke;
+    flex-direction: column;
+  }
+
+.main-header{
+color: #fff;
+  }
+
+
+  .create-form label {
+    color: whitesmoke !important;
+    font-size: 12px !important;
+  }
+
+
+  .bGroup {
+    display:flex;
+    flex-wrap: wrap;
+
+  }
+
+  
+  
