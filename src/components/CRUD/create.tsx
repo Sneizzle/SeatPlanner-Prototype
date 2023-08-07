@@ -1,10 +1,14 @@
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router';
 
 
 export default function Create() {
+  // let history = useHistory();
+  const navigation = useNavigate()
+
+
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [team, setTeam] = useState('');
@@ -17,9 +21,12 @@ export default function Create() {
         location,
         team,
         checkbox
+      }).then(() => {
+        navigation("/readPage");
       })
   }
 
+  
 
 
   return(
@@ -40,7 +47,7 @@ export default function Create() {
 
 
     <Form.Field>
-      <Checkbox label='I agree to the Terms and Conditions' onChange={(e) => setCheckbox(!checkbox)}/>
+      <Checkbox label='I agree to the Terms and Conditions' onChange={() => setCheckbox(!checkbox)}/>
     </Form.Field>
 
 

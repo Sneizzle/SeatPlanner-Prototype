@@ -4,7 +4,7 @@
 
 export interface PersonConfig {
     // skal udfyldes
-id: string;
+id: number;
 location: string;
 team?: string;
 name: string;

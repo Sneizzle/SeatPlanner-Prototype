@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+
 
 export default function Update() {
-const [id, setID] = useState(null);
+    const navigation = useNavigate()
+
+const [id, setID] = useState<number|null>(null);
 const [name, setName] = useState('');
 const [location, setLocation] = useState('');
 const [team, setTeam] = useState('');
@@ -11,21 +15,22 @@ const [checkbox, setCheckbox] = useState(false);
 
 
 useEffect(() => {
+
    
     const id = localStorage.getItem('ID');
-    if (id !== null) setID(id);
+    if (id !== null) setID(Number.parseInt(id, 10));
 
     const name = localStorage.getItem('Name');
     if (name !== null) setName(name);
 
     const location = localStorage.getItem('Location');
-    if (location !== null) setLocation("Location");
+    if (location !== null) setLocation(location);
 
     const team = localStorage.getItem('Team');
     if (team !== null) setTeam(team);
 
-     const checkbox = localStorage.getItem('Checkbox Value');
-     if (checkbox !== null) setCheckbox(Boolean(checkbox));
+    const checkbox = localStorage.getItem('Checkbox Value');
+    if (checkbox !== null) setCheckbox(Boolean(checkbox));
 
 //     setID(localStorage.getItem("ID"))
 //     setName(localStorage.getItem("Name"));
@@ -34,14 +39,15 @@ useEffect(() => {
 //     setCheckbox(localStorage.getItem("Checkbox Value"));
 }, []);
 
-
 const UpdateAPIData = () => {
-    axios.put('https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData/${id}', {
+    axios.put(`https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData/${id}`, {
         name,
         location,
         team,
         checkbox
-    })
+    }).then(() => {
+        navigation("/readPage");
+      })
 };
 
 
@@ -65,7 +71,7 @@ return(
 
 
     <Form.Field>
-      <Checkbox label='I agree to the Terms and Conditions' checked={checkbox} onChange={(e) => setCheckbox(!checkbox)}/>
+      <Checkbox label='I agree to the Terms and Conditions' checked={checkbox} onChange={() => setCheckbox(!checkbox)}/>
     </Form.Field>
 
 
