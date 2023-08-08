@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
 import SearchBar from "../components/searchBar";
-import people from "../Classes/person";
 import MapComponent from "../components/testcomponents/MapComponent";
-
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { PersonConfig } from '../Classes/Interfaces';
 
 function Search() {
+
+  const [APIData, setAPIData] = useState<PersonConfig[]>([]);
+  useEffect(() => {
+      axios.get(`https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData`)
+      .then((response) => {
+          setAPIData(response.data);
+          console.log(response.data);
+          // data til response.data
+   })
+  }, []);
+
+
   return (
+
+
     <div>
 
 {/* <DrawRedLine></DrawRedLine> */}
@@ -14,7 +28,7 @@ function Search() {
       <Link to="/">Click to view our Home page</Link>
 {
 
-<SearchBar data={people}></SearchBar> }
+<SearchBar data={APIData}></SearchBar> }
 <MapComponent></MapComponent> */
 
 

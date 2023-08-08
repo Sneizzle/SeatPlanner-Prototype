@@ -21,6 +21,14 @@ const ButtonTest = () => {
           <button>xArrowTesting 2 Page</button>
         </Link>
 
+
+{/* Draw Testing 3*/}
+<Link to="/gridGame">
+          <button>Grid Game</button>
+        </Link>
+
+
+
       </div>
 
 

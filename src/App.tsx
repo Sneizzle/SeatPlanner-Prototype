@@ -12,6 +12,7 @@ import CreatePage from './pages/CrudPages/CreatePage';
 import ReadPage from './pages/CrudPages/ReadPage';
 import UpdatePage from './pages/CrudPages/UpdatePage';
 import DeletePage from './pages/CrudPages/DeletePage';
+import GridGame from './pages/testingPages/GridGame';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="readPage" element={<ReadPage/>}/>
         <Route path="updatePage" element={<UpdatePage/>}/>
         <Route path="deletePage" element={<DeletePage/>}/>
+        <Route path="gridGame" element={<GridGame/>}/>
 
 
 

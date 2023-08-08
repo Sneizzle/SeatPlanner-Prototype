@@ -3,9 +3,13 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import { PersonConfig } from '../Classes/Interfaces'
 
 
-function searchBar({data}: {data:PersonConfig[]}) {
+
+
+
+
+function searchBar({ data }: { data: PersonConfig[] }) {
   // note: the id field is mandatory
-  
+
 
   const handleOnSearch = (string: string, results: PersonConfig[]) => {
     // onSearch will have as the first callback parameter
@@ -13,12 +17,12 @@ function searchBar({data}: {data:PersonConfig[]}) {
     console.log(string, results)
   }
 
-  const handleOnHover = (result:PersonConfig) => {
+  const handleOnHover = (result: PersonConfig) => {
     // the item hovered
     console.log(result)
   }
 
-  const handleOnSelect = (item:PersonConfig) => {
+  const handleOnSelect = (item: PersonConfig) => {
     // the item selected
     console.log(item)
   }
@@ -27,7 +31,7 @@ function searchBar({data}: {data:PersonConfig[]}) {
     console.log('Focused')
   }
 
-  const formatResult = (item:PersonConfig) => {
+  const formatResult = (item: PersonConfig) => {
     return (
       <>
         <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>

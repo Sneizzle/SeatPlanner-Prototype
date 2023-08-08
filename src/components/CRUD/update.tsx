@@ -3,7 +3,7 @@ import { Button, Checkbox, Form } from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
-
+ 
 export default function Update() {
     const navigation = useNavigate()
 
@@ -16,6 +16,8 @@ const [checkbox, setCheckbox] = useState(false);
 
 useEffect(() => {
 
+
+    
    
     const id = localStorage.getItem('ID');
     if (id !== null) setID(Number.parseInt(id, 10));
@@ -32,7 +34,7 @@ useEffect(() => {
     const checkbox = localStorage.getItem('Checkbox Value');
     if (checkbox !== null) setCheckbox(Boolean(checkbox));
 
-//     setID(localStorage.getItem("ID"))
+     
 //     setName(localStorage.getItem("Name"));
 //     setLocation(localStorage.getItem("Location"));
 //     setTeam(localStorage.getItem("Team"));

@@ -19,6 +19,7 @@ export default function Read() {
      })
     }, []);
 
+
     const setData = (data:PersonConfig) => {
         let { id, name, location, team, checkbox } = data;
         localStorage.setItem('ID', id.toString());
