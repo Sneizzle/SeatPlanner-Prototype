@@ -8,7 +8,7 @@ function GridGame() {
 
 
     const canvasStyle: React.CSSProperties = {
-        border: '1px solid #000000'
+        border: '1px solid #000000',
     }
 
 
