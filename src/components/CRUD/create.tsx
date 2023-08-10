@@ -13,9 +13,9 @@ export default function Create() {
   const [location, setLocation] = useState('');
   const [team, setTeam] = useState('');
   const [checkbox, setCheckbox] = useState(false);
-  
+
   const postData = () => {
-      axios.post('https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData', 
+    axios.post('https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData',
       {
         name,
         location,
@@ -26,35 +26,35 @@ export default function Create() {
       })
   }
 
-  
 
 
-  return(
+
+  return (
     <div>
-  <Form className='create-form'>
-    <Form.Field>
-      <label>Name</label>
-      <input placeholder='Name' onChange={(e) => setName(e.target.value)} />
-    </Form.Field>
-    <Form.Field>
-      <label>Location</label>
-      <input placeholder='Location' onChange={(e) => setLocation(e.target.value)}/>
-    </Form.Field>
-    <Form.Field>
-      <label>Team</label>
-      <input placeholder='Team' onChange={(e) => setTeam(e.target.value)}/>
-    </Form.Field>
+      <Form className='create-form'>
+        <Form.Field>
+          <label>Name</label>
+          <input placeholder='Name' onChange={(e) => setName(e.target.value)} />
+        </Form.Field>
+        <Form.Field>
+          <label>Location</label>
+          <input placeholder='Location' onChange={(e) => setLocation(e.target.value)} />
+        </Form.Field>
+        <Form.Field>
+          <label>Team</label>
+          <input placeholder='Team' onChange={(e) => setTeam(e.target.value)} />
+        </Form.Field>
 
 
-    <Form.Field>
-      <Checkbox label='I agree to the Terms and Conditions' onChange={() => setCheckbox(!checkbox)}/>
-    </Form.Field>
+        <Form.Field>
+          <Checkbox label='I agree to the Terms and Conditions' onChange={() => setCheckbox(!checkbox)} />
+        </Form.Field>
 
 
-    <Button onClick={postData} type='submit'>Submit</Button>
+        <Button onClick={postData} type='submit'>Submit</Button>
 
-  </Form>
-  </div>
+      </Form>
+    </div>
   )
 }
 

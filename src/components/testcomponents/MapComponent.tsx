@@ -1,17 +1,17 @@
 import React from 'react';
 import { MapContainer, TileLayer, ImageOverlay } from 'react-leaflet';
 import { LatLngBoundsLiteral, LatLngTuple } from 'leaflet';
-import "../../../public/image.png";
+import officepicture from '../../img/officepicture.png';
 
 interface MapProps {
   // Component props...
 }
 
-const MapComponent: React.FC<MapProps> = ({ /* Component props... */ }) => {
+const MapComponent: React.FC<MapProps> = () => {
   const initialPosition: LatLngTuple = [51.505, -0.09]; // Set the initial map center
   const zoomLevel: number = 13;
 
-  const imageUrl = 'your-map.png'; // Replace with the name of your PNG map in the public folder
+  const imageUrl = officepicture; // Replace with the name of your PNG map in the public folder
 
   const bounds: LatLngBoundsLiteral = [
     [51.49, -0.12], // Replace with the latitude and longitude of the southwest corner of your PNG map

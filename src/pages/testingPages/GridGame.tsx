@@ -1,50 +1,54 @@
 import { useEffect, useRef } from "react";
 
+import { Settings } from "../../Classes/settings";
+import '../../Styles/Canvas.css';
+import '../../img/officepicture.png';
+import MapOverLay from '../../game/utils/MapOverlay';
 
 
 function GridGame() {
 
 
 
-
     const canvasStyle: React.CSSProperties = {
         border: '1px solid #000000',
     }
-
-
     const canvasref = useRef<HTMLCanvasElement>(null);
-
-
     useEffect(() => {
-
         console.log(canvasref.current)
         //     // Get the canvas document ID and get the context
         const canvas = canvasref.current;
         const ctx = canvas?.getContext('2d');
-
-        // draw on the canvas:
-        if (ctx) {
-            //  ctx.moveTo(0,0);
-            //  ctx.lineTo(200, 100);
-            //  ctx.stroke();
-
-
-            ctx.beginPath()
-            ctx.fillStyle = 'rgba(255,0,0,1)'
-            ctx.rect(10, 10, 50, 50)
-            ctx.fill()
-
+        const canvasSize = (Settings.grid.nodeSize + Settings.grid.nodeOffset) * Settings.grid.dimension + Settings.grid.nodeOffset
+        canvas?.setAttribute('width', canvasSize.toString())
+        canvas?.setAttribute('height', canvasSize.toString())
+        //adjustment
+        const size = Settings.grid.nodeSize
+        const offset = Settings.grid.nodeOffset
+        for (let y = 0; y < Settings.grid.dimension; y++) {
+            for (let x = 0; x < Settings.grid.dimension; x++) {
+                if (ctx) {
+                    ctx.beginPath()
+                    ctx.fillStyle = Settings.grid.color
+                    ctx.rect((size + offset) * x, (size + offset) * y, size, size)
+                    ctx.fill()
+                }
+            }
         }
-
     }, []);
-
     return (
         <div>
-            <h1>This is the Grid Game page</h1>
-            <canvas ref={canvasref} id="myCanvas" width="500" height="500" style={canvasStyle}>
-            </canvas>
-        </div>
+            <MapOverLay></MapOverLay>
+
+
+            <div>
+                <h1 className="title">This is the Grid Game page</h1>
+                <canvas ref={canvasref} id="myCanvas" style={canvasStyle}>
+
+
+
+                </canvas>
+            </div></div>
     );
 }
-
 export default GridGame;
