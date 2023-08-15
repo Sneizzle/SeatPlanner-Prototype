@@ -13,7 +13,8 @@ import ReadPage from './pages/CrudPages/ReadPage';
 import UpdatePage from './pages/CrudPages/UpdatePage';
 import DeletePage from './pages/CrudPages/DeletePage';
 import GridGame from './pages/testingPages/GridGame';
-
+import LeafletFitBounds from './pages/testingPages/LeafletFitBounds';
+import LeafLetSuperMap from './pages/testingPages/LeafletSuperMap';
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
         <Route path="updatePage" element={<UpdatePage/>}/>
         <Route path="deletePage" element={<DeletePage/>}/>
         <Route path="gridGame" element={<GridGame/>}/>
-
+        <Route path="leafletfitbounds" element={<LeafletFitBounds/>}/>
+        <Route path="leafletsupermap" element={<LeafLetSuperMap/>}/>
 
 
         

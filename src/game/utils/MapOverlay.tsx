@@ -16,7 +16,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ imageUrl }) => {
   };
 
   const calculateNewDimensions = () => {
-    const aspectRatio = 16 / 9; // Change this to your desired aspect ratio
+    const aspectRatio = 16 / 12; // Change this to your desired aspect ratio
     const originalWidth = 1511 / 2; // Original width of the image
     const originalHeight = originalWidth / aspectRatio; // Calculate original height based on aspect ratio
 
@@ -47,29 +47,39 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ imageUrl }) => {
   );
 };
 
+
+
+
 const MapOverlay: React.FC = () => {
 
-  const originalValuewidth = 1069;
-  const originalValueheight = 1511;
+  
+
+  const aspectRatio = 16 / 12;
+  const originalValuewidth = 1511 / 2;
+  const originalValueheight = originalValuewidth / aspectRatio;
+  // const scale = 100;
+
+
 
   const imageUrl = officepicture;
-  const imageWidth = originalValuewidth / 2;
+  const imageWidth = originalValuewidth / aspectRatio;
   const imageHeight = originalValueheight / 2;
   const containerWidth = 500;
   const containerHeight = 500;
   const imageBounds: [[number, number], [number, number]] = [[0, 0], // Southwest corner (top-left corner of the image)
   [imageHeight, imageWidth], // Northeast corner (bottom-right corner of the image)
   ];
-  const maxBounds: [[number, number], [number, number]] = imageBounds;
+  // const maxBounds: [[number, number], [number, number]] = imageBounds;
   const center: [number, number] = [imageHeight / 2, imageWidth / 2]; // Center based on image size
 
   return (
     <div>
       <MapContainer
         center={center}
-        zoom={1}
+        bounds={imageBounds}
+        zoom={0}
         style={{ height: `${containerHeight}px`, width: `${containerWidth}px` }}
-        maxBounds={maxBounds}
+        maxBounds={imageBounds}
       >
         <ImageOverlay url={imageUrl} alt="Office Picture" bounds={imageBounds} />
       </MapContainer>

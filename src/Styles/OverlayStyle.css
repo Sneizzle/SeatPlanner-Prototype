@@ -1,0 +1,18 @@
+
+
+
+.imageSettings {
+
+    height: 1511px !important;
+    width: 1069px !important;
+    transform: none !important;
+
+    height: 100vh !important;
+    width: 100vw  !important;
+    
+    max-height: 1511px  !important;
+    max-width: 1069px   !important; 
+
+/*     
+    aspect-ratio: 1069/1511; */
+}

@@ -27,6 +27,23 @@ const ButtonTest = () => {
           <button>Grid Game</button>
         </Link>
 
+{/* 
+        /* LeafletFitBounds*/} 
+<Link to="/leafletfitbounds">
+          <button>Leaflet FitBounds</button>
+        </Link>
+
+
+
+
+{/* 
+        /* LeafletFitBounds*/} 
+<Link to="/leafletsupermap">
+          <button>Leaflet Supermap</button>
+        </Link>
+
+
+
 
 
       </div>

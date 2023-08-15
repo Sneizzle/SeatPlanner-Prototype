@@ -1,0 +1,45 @@
+
+
+<html lang="en">
+  <head>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+
+
+    <style>
+        #root {height: 100%}
+    </style>
+
+
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+            <body>
+                <h1> hello world</h1>
+            
+            
+            
+                <div id="root"> </div>
+                
+                <script>
+                var map = L.map('root', {
+                    crs: L.CRS.Simple
+                });
+                var bounds = [[0,0], [1000,1000]];
+                var image = L.imageOverlay('./src/img/officepicture.png', bounds).addTo(map);
+                map.fitBounds(bounds);
+                </script>
+
+            </body>
+</html>
+
