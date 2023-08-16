@@ -3,7 +3,7 @@ import '../Styles/Admin.css'
 // import Create from '../components/CRUD/create'
 import VerticalButtons from '../components/buttongroup/VerticalButtons';
 import '../components/buttongroup/VerticalButtons'
-
+import Modal from '../components/AdminModal';
 
 
 function Admin() {
@@ -16,8 +16,11 @@ function Admin() {
         <div style={{ flex: 1, textAlign: 'center', marginLeft: '20px' }}>
         
           {/* <Create /> */}
+          
         </div>
+        
       </div>
+      <Modal></Modal>
     </div>
   );
 }
