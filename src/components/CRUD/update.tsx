@@ -48,7 +48,7 @@ const UpdateAPIData = () => {
         team,
         checkbox
     }).then(() => {
-        navigation("/readPage");
+        navigation("/admin");
       })
 };
 

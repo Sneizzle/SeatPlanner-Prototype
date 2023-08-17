@@ -4,26 +4,24 @@ import Box from '@mui/material/Box';
 import 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Fragment } from 'react';
+import { IoMdCreate } from 'react-icons/io';
+import { AiFillRead} from 'react-icons/ai';
+
 
 const buttons = [
 
   <Fragment>
 
     <Link to="/createPage">
-      <Button key="One">Create</Button>,
+      <Button key="One">Create <IoMdCreate></IoMdCreate>  </Button>,
     </Link>
 
     <Link to="/readPage">
-      <Button key="Two">Read</Button>,
+      <Button key="Two">Read <AiFillRead> </AiFillRead></Button>,
     </Link>
 
-    <Link to="/updatePage">
-      <Button key="Three">Update</Button>,
-    </Link>
+  
 
-    <Link to="/deletePage">
-      <Button key="Four">Delete</Button>,
-    </Link>
 
   </Fragment>
 ];

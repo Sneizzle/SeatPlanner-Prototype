@@ -22,7 +22,8 @@ export default function Create() {
         team,
         checkbox
       }).then(() => {
-        navigation("/readPage");
+        window.location.reload();
+        // navigation("/admin");
       })
   }
 
