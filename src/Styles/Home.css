@@ -1,0 +1,22 @@
+
+
+.body {
+    background-color: black;
+    color: greenyellow;
+    text-align: center;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+}
+
+
+.background-image {
+    background-image: url(../img/housepicture.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 70%;
+    height: 70%;
+}

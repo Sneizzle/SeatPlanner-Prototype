@@ -20,11 +20,14 @@ class MyMap extends Component {
   }
 
   saveMarkers = (newMarkerCoords) => {
+    // tager listen af markers og appender den nye koordinat.
     const data = [...this.state.data, newMarkerCoords];
     console.log(data[0]);
     this.setState(
+      // opdaterer listen af koordinater i state.
       (prevState) => ({ ...prevState, data }),
       () =>
+        //setMarkers opdateren state i modal.
         this.props.setMarkers(
           this.state.data.map((position) => ({ name: "", position }))
         )
@@ -47,14 +50,18 @@ class MyMap extends Component {
           crs={CRS.Simple}
           bounds={bounds}
           style={{ height, width }}
+          //   dragging={false}
+          maxBounds={bounds}
         >
           <ImageOverlay bounds={bounds} url={officepicture} />
           {/* Render markers */}
+
           {this.state.data.map((markerCoords, index) => (
             <Marker key={index} position={markerCoords}>
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
+              <button></button>
             </Marker>
           ))}
           {/* Handle map events */}

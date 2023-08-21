@@ -71,6 +71,18 @@ body.active-modal {
 
 .table-container {
     margin-top: 100px; /* Adjust this value as needed */
+
+
+   
+        background-color: #1E1F25;
+        border-radius: 30px;
+        height: 540px;
+        width: 1700px;
+        padding: 0 10px 10px 10px;
+        overflow: scroll;
+        overflow-x: hidden ;
+
+
   }
 
   .marker-table th {
