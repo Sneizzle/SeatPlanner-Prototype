@@ -9,14 +9,19 @@ import {
 import { CRS } from "leaflet";
 import L from "leaflet";
 import officepicture from "../../img/officepicture.png";
+import axios from "axios";
 
 class MyMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: [],
-      data: [],
+      data: props.APIData.map((data) => data.markerCoords).filter(
+        (coords) => coords.length > 0
+      ),
     };
+    // this.state.data.forEach(position => {
+    //   L.marker([lat, lng]).addTo(map);
+    // });
   }
 
   saveMarkers = (newMarkerCoords) => {
@@ -66,8 +71,10 @@ class MyMap extends Component {
           ))}
           {/* Handle map events */}
           <LeafLetAdminComponent
+            setAPIData={this.props.setAPIData}
             saveMarkers={this.saveMarkers}
             addMarkerMode={this.props.addMarkerMode}
+            defineSeat={this.props.defineSeat}
           />
         </MapContainer>
       </div>
@@ -75,14 +82,47 @@ class MyMap extends Component {
   }
 }
 
-function LeafLetAdminComponent({ saveMarkers, addMarkerMode }) {
+function LeafLetAdminComponent({
+  saveMarkers,
+  addMarkerMode,
+  defineSeat,
+  setAPIData,
+}) {
   const map = useMapEvents({
     click: (e) => {
       console.log(addMarkerMode);
-      if (!addMarkerMode) return;
+      const adminUser = localStorage.getItem("AdminUserMarker");
+      if (!addMarkerMode || !adminUser) return;
       const { lat, lng } = e.latlng;
       L.marker([lat, lng]).addTo(map);
       saveMarkers([lat, lng]);
+
+      const data = JSON.parse(atob(adminUser));
+
+      axios
+        .put(`https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData/${data.id}`, {
+          ...data,
+          markerCoords: [lat, lng],
+          checkbox: true,
+        })
+
+        .then((response) => {
+          defineSeat();
+          setAPIData((prevState) => {
+            const index = prevState.findIndex(
+              (oldData) => oldData.id === data.id
+            );
+            const newState = [...prevState];
+            newState[index] = response.data;
+            return newState;
+
+            // return [...prevState, [oldDataIndex]: newData]
+            // prevState[oldDataIndex] = newData;
+            // return prevState;
+          });
+          console.log(response.data);
+          // data til response.data
+        });
     },
   });
   return null;

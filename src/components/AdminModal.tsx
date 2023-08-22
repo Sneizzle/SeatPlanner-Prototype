@@ -7,11 +7,67 @@ import Dropdown from "react-dropdown";
 import { Button, Table } from "semantic-ui-react";
 import Read from "./CRUD/read";
 import axios from "axios";
+import adminUser from "./utility/adminUser";
 
+//default export
 export default function Modal() {
+  // State Management
   const [modal, setModal] = useState(false);
-
   const [APIData, setAPIData] = useState([]);
+  const [markers, setMarkers] = useState([]);
+  const [addMarkerMode, setAddMarkerMode] = useState(false);
+  const [assignSeatMode, setAssignSeatMode] = useState(false);
+
+  const toggleAssignSeatMode = () => {
+    setAssignSeatMode((prevState) => !prevState);
+  };
+  const toggleAddMarkerMode = () => {
+    setAddMarkerMode((prevState) => !prevState);
+  };
+
+  const defineSeat = (data) => {
+    toggleAssignSeatMode();
+    toggleAddMarkerMode();
+    localStorage.setItem("AdminUserMarker", btoa(JSON.stringify(data)));
+  };
+
+  const [selectedPerson, setSelectedPerson] = useState(
+    new Array(markers.length).fill(null)
+  );
+
+  const unassignSeat = (id) => {
+    axios
+      .put(`https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData/${id}`, {
+        markerCoords: [],
+        checkbox: false,
+      })
+      // .then((response) => {
+      //   setAPIData((prevState) => {
+      //     const oldDataIndex = prevState.findIndex((data) => data.id === id);
+      //     const newData = response.data;
+      //     const newState = [...prevState];
+      //     newState[oldDataIndex] = newData;
+      //     return newState;
+
+      .then((response) => {
+        setAPIData((prevState) => {
+          const index = prevState.findIndex((data) => data.id === id);
+          const newState = [...prevState];
+          newState[index] = response.data;
+          return newState;
+
+          // return [...prevState, [oldDataIndex]: newData]
+          // prevState[oldDataIndex] = newData;
+          // return prevState;
+        });
+        console.log(response.data);
+        // data til response.data
+      });
+  };
+
+  // API Management
+  //API GET
+
   useEffect(() => {
     axios
       .get(`https://64ccd9752eafdcdc851a5daf.mockapi.io/SPData`)
@@ -22,28 +78,16 @@ export default function Modal() {
       });
   }, []);
 
-  const setData = (data) => {
-    const { id, name, location, team, checkbox } = data;
-  };
-
+  // Filter dropdownmenu for unassigned people.
   function getUnassignedPeople() {
     return APIData.filter((data) => !data.checkbox) // Filter unassigned people
       .map((data) => ({ value: data.id, label: data.name }));
   }
 
+  //Modal
   const toggleModal = () => {
     setModal(!modal);
   };
-
-  const [addMarkerMode, setAddMarkerMode] = useState(false);
-  const toggleAddMarkerMode = () => {
-    setAddMarkerMode((prevState) => !prevState);
-  };
-
-  const [markers, setMarkers] = useState([]);
-  const [selectedPerson, setSelectedPerson] = useState(
-    new Array(markers.length).fill(null)
-  );
 
   if (modal) {
     document.body.classList.add("active-modal");
@@ -55,8 +99,10 @@ export default function Modal() {
   //   setMarkers(updatedMarkers)
   // }
 
+  // Dropdownmenu
   const options = ["one", "two", "three"];
   const defaultOption = options[0];
+
   return (
     <>
       <button onClick={toggleModal} className="btn-modal">
@@ -70,16 +116,19 @@ export default function Modal() {
             <div className="mapcomp">
               {" "}
               <MyMap
+                APIData={APIData}
+                setAPIData={setAPIData}
                 setMarkers={setMarkers}
                 addMarkerMode={addMarkerMode}
+                defineSeat={defineSeat}
               />{" "}
             </div>
 
             <div className="controls">
               <div className="button-container">
-                <button onClick={toggleAddMarkerMode}>
+                {/* <button onClick={toggleAddMarkerMode}>
                   {addMarkerMode ? "Cancel Add Marker" : "Add Marker"}
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -119,9 +168,13 @@ export default function Modal() {
                         />
                       </td> */}
                       <td>
-                        {marker.position[0].toFixed(0)},{" "}
-                        {marker.position[1].toFixed(0)}
-                      </td>{" "}
+                        {marker.position
+                          .map((position) => position.toFixed(0))
+                          .join(", ")}
+                        {/* {marker.position[0].toFixed(0)},{" "}
+                        {marker.position[1].toFixed(0)} */}
+                        {/* </td>{" "} */}
+                      </td>
                       <td>
                         <button>
                           Assign Person{" "}
@@ -148,8 +201,9 @@ export default function Modal() {
                       <Table.HeaderCell>Name</Table.HeaderCell>
                       <Table.HeaderCell>Team</Table.HeaderCell>
 
-                      <Table.HeaderCell>Checkbox</Table.HeaderCell>
+                      <Table.HeaderCell>Seated</Table.HeaderCell>
                       <Table.HeaderCell> Actions</Table.HeaderCell>
+                      <Table.HeaderCell> Marker Position</Table.HeaderCell>
                     </Table.Row>
                   </Table.Header>
 
@@ -158,17 +212,33 @@ export default function Modal() {
                       return (
                         <Table.Row>
                           <Table.Cell>{data.name}</Table.Cell>
-
                           <Table.Cell>{data.team}</Table.Cell>
                           <Table.Cell>
                             {data.checkbox ? (
                               "Assigned"
                             ) : (
-                              <button>Requires Seat</button>
+                              // <button>Requires Seat</button>
+
+                              <button onClick={() => defineSeat(data)}>
+                                {assignSeatMode
+                                  ? "Place a Marker"
+                                  : "Unassigned"}
+                              </button>
                             )}
                           </Table.Cell>
+
                           <Table.Cell>
-                            <button>Remove Seat</button>
+                            {data.checkbox && (
+                              <button onClick={() => unassignSeat(data.id)}>
+                                Remove Seat
+                              </button>
+                            )}
+                          </Table.Cell>
+
+                          <Table.Cell>
+                            {data.markerCoords
+                              .map((position) => position.toFixed(0))
+                              .join(", ")}
                           </Table.Cell>
 
                           {/* UpdateFunktion */}
